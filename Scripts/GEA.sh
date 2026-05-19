@@ -18,7 +18,7 @@ vcftools --gzvcf $unfilter_vcf \
 # 2. filter read depth and missing data 
 
 vcftools --gzvcf ../Dxy/step1.g.vcf.gz \
---maf 0.01 --max-missing 0.90 \
+--maf 0.05 --max-missing 0.90 \
 --minQ 20 \
 --min-meanDP 10 --max-meanDP 30 \
 --minDP 10 --maxDP 30 \
@@ -31,7 +31,7 @@ ml GCC/12.3.0 PLINK/2.00a3.7
 # --recod A for .raw
 
 plink --vcf final_geno_GEA.g.vcf.gz \
---maf 0.01 --geno 0.1 \
+--maf 0.05 --geno 0.1 \
 --recode A \
 --output-missing-genotype 9 \
 --out genotype_data \
