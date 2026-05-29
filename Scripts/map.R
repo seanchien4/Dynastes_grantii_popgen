@@ -48,12 +48,14 @@ map("state", region = "arizona", fill = T, add = T)
 tree.cover <- landcover('trees', path = tempdir())
 # pdf("../plots/studysite_dist.pdf", width = 6, height = 6)
 par(mar = c(0, 0, 0, 0))
-plot(tree.cover, xlim = c(-115, -106), ylim = c(29.5, 38), col = terrain.colors(100, rev = T))
+aoi <- ext(-115, -106, 29.5, 38)
+tree.crop <- crop(tree.cover, aoi)
+plot(tree.crop, xlim = c(-115, -106), ylim = c(29.5, 38), col = terrain.colors(100, rev = T))
 # study site
 map('state', fill = FALSE, xlim = c(-115, -106), ylim = c(29.5, 38.5), xlab = "lon", ylab = "lat", add= T, col = '#636363')
 map.scale(x=-114.5, y=30, ratio=FALSE, relwidth=0.2, cex = 0.5)
 ### species distribution
-grantii <- read.csv('../data/grantii_gbif.csv')
+grantii <- read.csv('~/Desktop/Projects/Dynastes_grantii_pop/data/grantii_gbif.csv')
 ## all species from GBIF
 points(x=grantii$lon, y = grantii$lat, pch = 16, cex = 1, col = rgb(37,37,37, maxColorValue = 255, alpha = 100))
 # location 

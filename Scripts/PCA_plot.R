@@ -5,10 +5,11 @@ library(car)
 library(dplyr)
 library(plotly)
 library(scatterplot3d)
+options(rgl.useNULL = TRUE)
 library(rgl)
 library(magick)
-pca <- read.table('../Data/PCA/final.eigenvec')
-eigenval <- scan("../Data/PCA/final.eigenval")
+pca <- read.table('~/Desktop/Projects/Dynastes_grantii_pop/Data/PCA/final.eigenvec')
+eigenval <- scan("~/Desktop/Projects/Dynastes_grantii_pop/Data/PCA/final.eigenval")
 pca <- pca[,-1]
 names(pca)[1] <- "ind"
 names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
@@ -217,7 +218,7 @@ plot3d( pca$PC1, pca$PC2, pca$PC3, col = loc_col, type = "s",
 # play3d( spin3d( axis = c(0, 0, 1), rpm = 10,dev = cur3d()),startTime = 0, duration = 10 )
 
 frame_files <- movie3d(
-  movie = "../plots/PCA_animation/3dAnimatedScatterplot",
+  movie = "~/Desktop/Projects/Dynastes_grantii_pop/plots/PCA_animation/3dAnimatedScatterplot",
   spin3d(axis = c(0, 0, 1), rpm = 2),
   duration = 30,
   dir = ".",
