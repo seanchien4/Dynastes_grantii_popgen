@@ -100,19 +100,3 @@ done
 cat Mogollon_roh_regions.txt Lemmon_roh_regions.txt \
     Portal_roh_regions.txt Utah_roh_regions.txt \
     > all_roh_regions.txt
-
-
-ml purge
-ml GCC/13.2.0 BCFtools/1.19
-# ROH
-bcftools roh -e Mogollon.list -o roh_Mogollon.txt Mogollon.g.vcf.gz
-grep "^RG" roh_Mogollon.txt > Mogollon_roh_regions.txt
-
-bcftools roh -e Utah.list -o roh_Utah.txt Utah.g.vcf.gz &
-grep "^RG" roh_Utah.txt > Utah_roh_regions.txt
-
-bcftools roh -e Lemmon.list -o roh_Lemmon.txt Lemmon.g.vcf.gz &
-grep "^RG" roh_Lemmon.txt > Lemmon_roh_regions.txt
-
-bcftools roh -e Portal.list -o roh_Portal.txt Portal.g.vcf.gz &
-grep "^RG" roh_Portal.txt > Portal_roh_regions.txt
