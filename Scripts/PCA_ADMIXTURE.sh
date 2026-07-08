@@ -49,17 +49,22 @@ plink --vcf ../vcf/final_geno_filter.g.vcf.gz --double-id --allow-extra-chr --se
 --make-bed --pca --out final
 
 
-#################
-# faststructure #
-#################
+# ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
+awk '{$1="0";print $0}' final.bim > final.bim.tmp
+mv final.bim.tmp final.bim
 
-structure.py -K 1 --input=../PCA/final --output=final
-
-for i in {2..5};
-do echo 'running k=' $i;structure.py -K $i --full --input=../PCA/final --output=final;
-paste ID.txt final.$i.meanQ > genetic_prop_$i.txt
+admixture --cv final.bed 2 > log2.out &
+for i in {3..9}
+do
+admixture --cv final.bed $i > log${i}.out &
 done
 
-chooseK.py --input=final
-paste ID.txt final.2.meanQ > genetic_prop.txt
 
+
+awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > admixture.cv.error
+awk '{split($1,name,"."); print $1,name[2]}' final.nosex > admixture.list
+
+for i in {2..9}
+do
+paste admixture.list final.$i.Q > genetic_prop_$i.txt
+done
