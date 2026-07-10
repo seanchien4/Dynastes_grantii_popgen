@@ -42,7 +42,7 @@ max_dens <- max(sapply(densities, function(d) max(d$y)))
 n <- length(dxy_list)
 # 3. Create the empty plot frame
 # par(mar = c(5, 4, 1, 1))
-par(mfrow = c(1, 2), mar = c(6, 4, 1, 0.5))
+par(mfrow = c(1, 2), mar = c(6, 4, 1.5, 0.5))
 plot(1, type = "n", 
      xlim = c(0.5, n + 0.5), ylim = c(0,1.1),
      xaxt = "n", 
@@ -84,6 +84,7 @@ points(0.5,1.1, pch = 16, col = cols[1])
 text(0.5, 1.1, pos = 4, label = 'Non-Utah involved')
 points(0.5,1.05, pch = 16, col = cols[4])
 text(0.5, 1.05, pos = 4, label = 'Utah involved')
+title(main = "(A)", adj = 0, line = 0.5)
 # statistic 
 # Does any pair differ from the others?
 # 1. Get all unique combinations of your 6 pairs (15 combinations)
@@ -212,6 +213,7 @@ for(i in 1:n) {
     text(i, 1.1, labels = "***", cex = 1)
   }
 }
+title(main = "(B)", adj = 0, line = 0.5)
 # points(0.5,1.1, pch = 16, col = cols[1])
 # text(0.5, 1.1, pos = 4, label = 'Non-Utah involved')
 # points(0.5,1.04, pch = 16, col = cols[4])
