@@ -2,6 +2,13 @@
 # Dsuite 
 # ABBA-BABA
 # Are the populations in the contact zone formally the product of gene flow between the Mt. Lemmon and Portal lineages?
+vcftools --gzvcf step1.g.vcf.gz \
+--maf 0.1 --max-missing 0.90 \
+--minQ 20 \
+--min-meanDP 10 --max-meanDP 30 \
+--minDP 10 --maxDP 30 \
+--recode --stdout | gzip -c > final_geno_filter.g.vcf.gz
+
 vcf=/scratch/user/schien/D_grantii/Population_Genetics/vcf/final_geno_filter.g.vcf.gz
 Dsuite=/scratch/user/schien/Software/Dsuite
 
@@ -90,3 +97,24 @@ $Dsuite/Build/Dsuite Dtrios -o exC Dsuit_exC_geno.g.vcf.gz pop_exC.map
 # Wrighton	Lemmon	Mogollon	0.00419645	1.59377	0.110987	0.0658506	131200	121991	120972
 # Wrighton	Mogollon	Mexico	0.00142742	0.400259	0.688966	0.00222648	82936.8	82382.7	82147.8
 
+echo -e "Wrighton\tChiricahua\tLemmon" > test_trios.txt
+echo -e "Graham\tChiricahua\tLemmon" >> test_trios.txt
+$Dsuite/Build/Dsuite Dinvestigate \
+    Dsuit_exC_geno.g.vcf.gz pop_exC.map test_trios.txt \
+    -w 50,25
+# tree text
+
+python3 vcf2phylip.py -i ../Dsuit_exC_geno.g.vcf.gz
+
+ml purge 
+ml GCC/12.3.0  OpenMPI/4.1.5 IQ-TREE/2.3.6
+# 2. Quick ML tree with IQ-TREE (ascertainment-bias correction since these are SNPs only)
+iqtree2 -s Dsuit_exC_geno.g.min4.phy --threads-max 8 -st DNA -m GTR+G -bb 1000 -nt AUTO -o DgUT1,DgUT2,DgUT4,DgUT5,DgUT6
+
+
+$Dsuite/Build/Dsuite Dtrios -t species_tree.nwk -o tree Dsuit_exC_geno.g.vcf.gz pop_exC.map
+$Dsuite/Build/Dsuite Fbranch species_tree.nwk tree_tree.txt > fbranch_out.txt
+python3 $Dsuite/utils/dtools.py fbranch_out.txt species_tree.nwk
+
+
+#
