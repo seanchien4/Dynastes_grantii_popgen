@@ -28,116 +28,119 @@ loc[grep("DgMG", pca$ind)] <- 'Mt_Graham'
 
 pca <- as.tibble(data.frame(pca,loc))
 pve <- data.frame(PC = 1:20, pve = eigenval/sum(eigenval)*100)
-par(mfrow = c(2, 2))
+par(mfrow = c(2, 2), mar = c(3, 3, 2, 1))
 # barplot to show the % of variance each principal component explains
 bp <- barplot(pve$pve, ylim = c(0, 10), xaxt = "n")
 axis(1, at = bp, labels = paste0("PC", 1:20), las = 2, cex.axis = 0.6)
-
+title(main = "(A)", adj = 0, line = 0.5)
+# Test significance using scree test or Kaiser criterion
+# Broken-stick model
 # plot
-# cols = viridis(8, alpha = 0.8)
 cols <- brewer.pal(9,name = 'Set1')
 loc_col <- rep(NA, length(pca$ind))
-loc_col[grep("Mogollon_Rim", pca$loc)] <- cols[6]
+loc_col[grep("Mogollon_Rim", pca$loc)] <- cols[4]
 loc_col[grep("Madera_canyon", pca$loc)] <- cols[1]
-loc_col[grep("Portal", pca$loc)] <- cols[2]
-loc_col[grep("Mt_Lemmon", pca$loc)] <- cols[7]
+loc_col[grep("Portal", pca$loc)] <- cols[3]
+loc_col[grep("Mt_Lemmon", pca$loc)] <- cols[2]
 loc_col[grep("Mt_Graham", pca$loc)] <- cols[5]
-loc_col[grep("Unknown", pca$loc)] <- cols[4]
+loc_col[grep("Unknown", pca$loc)] <- cols[7]
 loc_col[grep("Mexico", pca$loc)] <- cols[8]
-loc_col[grep("Utah", pca$loc)] <- cols[3]
+loc_col[grep("Utah", pca$loc)] <- cols[6]
 loc_col[grep("Cochise_County", pca$loc)] <- cols[9]
 
-lwd = 0.4
-cex = 0.8
-plot(x = pca$PC1, y = pca$PC2, pch = 21, bg = loc_col,lwd = lwd, cex = cex, 
+plot.lwd = 1
+plot.cex = 1
+plot(x = pca$PC1, y = pca$PC2, pch = 21, bg = loc_col,lwd = plot.lwd, cex = plot.cex, 
      xlab = 'PC1(9.9%)', ylab = 'PC2(6.5%)',)
-     #xlim = rev(range(pca$PC2)))
-x = 0.28
-y = 0.25
-s = -0.02
+#xlim = rev(range(pca$PC2)))
+title(xlab = 'PC1(9.9%)', line = 2)
+title(ylab = 'PC2(6.5%)', line = 2)
+x = 0.23
+y = 0.26
+s = -0.025
 pch = 21
-lwd = 0.2
-cex = 0.5
+legend.lwd = 0.8
+legend.cex = 0.8
 
-points(x,y, pch = pch, bg = cols[6],lwd = lwd, cex = cex)
-text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = cex)
-points(x,y+s*1, pch = pch, bg = cols[1],lwd = lwd, cex = cex)
-text(x, y+s*1, pos =4 , labels = c("Madera Canyon"), cex = cex)
-points(x,y+s*2, pch = pch, bg = cols[2],lwd = lwd, cex = cex)
-text(x, y+s*2, pos =4 , labels = c("Portal"), cex = cex)
-points(x,y+s*3, pch = pch, bg = cols[7],lwd = lwd, cex = cex)
-text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = cex)
-points(x,y+s*4, pch = pch, bg = cols[5],lwd = lwd, cex = cex)
-text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = cex)
-points(x,y+s*5, pch = pch, bg = cols[9],lwd = lwd, cex = cex)
-text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = cex)
-points(x,y+s*6, pch = pch, bg = cols[4],lwd = lwd, cex = cex)
-text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = cex)
-points(x,y+s*7, pch = pch, bg = cols[8],lwd = lwd, cex = cex)
-text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = cex)
-points(x,y+s*8, pch = pch, bg = cols[3],lwd = lwd, cex = cex)
-text(x, y+s*8, pos =4 , labels = c("Utah"), cex = cex)
+points(x,y, pch = pch, bg = cols[4],lwd = legend.lwd, cex = legend.cex)
+text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = legend.cex)
+points(x,y+s*1, pch = pch, bg = cols[1],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*1, pos =4 , labels = c("Mt. Wrighton"), cex = legend.cex)
+points(x,y+s*2, pch = pch, bg = cols[3],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*2, pos =4 , labels = c("Chiricahua Mt."), cex = legend.cex)
+points(x,y+s*3, pch = pch, bg = cols[2],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = legend.cex)
+points(x,y+s*4, pch = pch, bg = cols[5],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = legend.cex)
+points(x,y+s*5, pch = pch, bg = cols[9],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = legend.cex)
+points(x,y+s*6, pch = pch, bg = cols[7],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = legend.cex)
+points(x,y+s*7, pch = pch, bg = cols[8],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = legend.cex)
+points(x,y+s*8, pch = pch, bg = cols[6],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*8, pos =4 , labels = c("Utah"), cex = legend.cex)
+title(main = "(B)", adj = 0, line = 0.5)
 
 ############
 # Other PC #
 ############
-lwd = 0.4
-cex = 0.8
-plot(x = pca$PC1, y = pca$PC3, pch = 21, bg = loc_col,lwd = lwd, cex = cex, 
+plot(x = pca$PC1, y = pca$PC3, pch = 21, bg = loc_col,lwd = plot.lwd, cex = plot.cex, 
      xlab = 'PC1(9.9%)', ylab = 'PC3(5.7%)',)
-x = 0.28
-y = 0.34
-s = -0.028
+title(xlab = 'PC1(9.9%)', line = 2)
+title(ylab = 'PC3(5.7%)', line = 2)
+x = 0.23
+y = 0.36
+s = -0.035
 pch = 21
-lwd = 0.2
-cex = 0.5
-points(x,y, pch = pch, bg = cols[6],lwd = lwd, cex = cex)
-text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = cex)
-points(x,y+s*1, pch = pch, bg = cols[1],lwd = lwd, cex = cex)
-text(x, y+s*1, pos =4 , labels = c("Madera Canyon"), cex = cex)
-points(x,y+s*2, pch = pch, bg = cols[2],lwd = lwd, cex = cex)
-text(x, y+s*2, pos =4 , labels = c("Portal"), cex = cex)
-points(x,y+s*3, pch = pch, bg = cols[7],lwd = lwd, cex = cex)
-text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = cex)
-points(x,y+s*4, pch = pch, bg = cols[5],lwd = lwd, cex = cex)
-text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = cex)
-points(x,y+s*5, pch = pch, bg = cols[9],lwd = lwd, cex = cex)
-text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = cex)
-points(x,y+s*6, pch = pch, bg = cols[4],lwd = lwd, cex = cex)
-text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = cex)
-points(x,y+s*7, pch = pch, bg = cols[8],lwd = lwd, cex = cex)
-text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = cex)
-points(x,y+s*8, pch = pch, bg = cols[3],lwd = lwd, cex = cex)
-text(x, y+s*8, pos =4 , labels = c("Utah"), cex = cex)
+points(x,y, pch = pch, bg = cols[4],lwd = legend.lwd, cex = legend.cex)
+text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = legend.cex)
+points(x,y+s*1, pch = pch, bg = cols[1],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*1, pos =4 , labels = c("Mt. Wrighton"), cex = legend.cex)
+points(x,y+s*2, pch = pch, bg = cols[3],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*2, pos =4 , labels = c("Chiricahua Mt."), cex = legend.cex)
+points(x,y+s*3, pch = pch, bg = cols[2],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = legend.cex)
+points(x,y+s*4, pch = pch, bg = cols[5],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = legend.cex)
+points(x,y+s*5, pch = pch, bg = cols[9],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = legend.cex)
+points(x,y+s*6, pch = pch, bg = cols[7],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = legend.cex)
+points(x,y+s*7, pch = pch, bg = cols[8],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = legend.cex)
+points(x,y+s*8, pch = pch, bg = cols[6],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*8, pos =4 , labels = c("Utah"), cex = legend.cex)
+title(main = "(C)", adj = 0, line = 0.5)
 
-lwd = 0.4
-cex = 0.8
-plot(x = pca$PC2, y = pca$PC3, pch = 21, bg = loc_col,lwd = lwd, cex = cex, 
+plot(x = pca$PC2, y = pca$PC3, pch = 21, bg = loc_col,lwd = plot.lwd, cex = plot.cex, 
      xlab = 'PC2(6.5%)', ylab = 'PC3(5.7%)',)
-x = 0.12
-y = 0.34
-s = -0.028
+title(xlab = 'PC2(6.5%)', line = 2)
+title(ylab = 'PC3(5.7%)', line = 2)
+x = 0.08
+y = 0.36
+s = -0.031
 pch = 21
-lwd = 0.2
-cex = 0.5
-points(x,y, pch = pch, bg = cols[6],lwd = lwd, cex = cex)
-text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = cex)
-points(x,y+s*1, pch = pch, bg = cols[1],lwd = lwd, cex = cex)
-text(x, y+s*1, pos =4 , labels = c("Madera Canyon"), cex = cex)
-points(x,y+s*2, pch = pch, bg = cols[2],lwd = lwd, cex = cex)
-text(x, y+s*2, pos =4 , labels = c("Portal"), cex = cex)
-points(x,y+s*3, pch = pch, bg = cols[7],lwd = lwd, cex = cex)
-text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = cex)
-points(x,y+s*4, pch = pch, bg = cols[5],lwd = lwd, cex = cex)
-text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = cex)
-points(x,y+s*5, pch = pch, bg = cols[9],lwd = lwd, cex = cex)
-text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = cex)
-points(x,y+s*6, pch = pch, bg = cols[4],lwd = lwd, cex = cex)
-text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = cex)
-points(x,y+s*7, pch = pch, bg = cols[8],lwd = lwd, cex = cex)
-text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = cex)
-points(x,y+s*8, pch = pch, bg = cols[3],lwd = lwd, cex = cex)
-text(x, y+s*8, pos =4 , labels = c("Utah"), cex = cex)
+
+points(x,y, pch = pch, bg = cols[4],lwd = legend.lwd, cex = legend.cex)
+text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = legend.cex)
+points(x,y+s*1, pch = pch, bg = cols[1],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*1, pos =4 , labels = c("Mt. Wrighton"), cex = legend.cex)
+points(x,y+s*2, pch = pch, bg = cols[3],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*2, pos =4 , labels = c("Chiricahua Mt."), cex = legend.cex)
+points(x,y+s*3, pch = pch, bg = cols[2],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = legend.cex)
+points(x,y+s*4, pch = pch, bg = cols[5],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = legend.cex)
+points(x,y+s*5, pch = pch, bg = cols[9],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = legend.cex)
+points(x,y+s*6, pch = pch, bg = cols[7],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = legend.cex)
+points(x,y+s*7, pch = pch, bg = cols[8],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = legend.cex)
+points(x,y+s*8, pch = pch, bg = cols[6],lwd = legend.lwd, cex = legend.cex)
+text(x, y+s*8, pos =4 , labels = c("Utah"), cex = legend.cex)
+title(main = "(D)", adj = 0, line = 0.5)
 
 # for (group in unique(pca$loc)) {
 #   data_subset <- subset(pca, loc == group)
@@ -178,16 +181,16 @@ lwd_legend = 1
 cex_legend = 1.2
 
 # Add legend points and text manually
-points(x_legend, y_legend, pch = pch_legend, bg = cols[6], lwd = lwd_legend, cex = cex_legend)
+points(x_legend, y_legend, pch = pch_legend, bg = cols[4], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend, pos = 4, labels = "Mogollon Rim", cex = 0.9)
 
 points(x_legend, y_legend + s_legend * 1, pch = pch_legend, bg = cols[1], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 1, pos = 4, labels = "Madera Canyon", cex = 0.9)
 
-points(x_legend, y_legend + s_legend * 2, pch = pch_legend, bg = cols[2], lwd = lwd_legend, cex = cex_legend)
+points(x_legend, y_legend + s_legend * 2, pch = pch_legend, bg = cols[3], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 2, pos = 4, labels = "Portal", cex = 0.9)
 
-points(x_legend, y_legend + s_legend * 3, pch = pch_legend, bg = cols[7], lwd = lwd_legend, cex = cex_legend)
+points(x_legend, y_legend + s_legend * 3, pch = pch_legend, bg = cols[2], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 3, pos = 4, labels = "Mt. Lemmon", cex = 0.9)
 
 points(x_legend, y_legend + s_legend * 4, pch = pch_legend, bg = cols[5], lwd = lwd_legend, cex = cex_legend)
@@ -196,13 +199,13 @@ text(x_legend, y_legend + s_legend * 4, pos = 4, labels = "Mt. Graham", cex = 0.
 points(x_legend, y_legend + s_legend * 5, pch = pch_legend, bg = cols[9], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 5, pos = 4, labels = "Cochise County", cex = 0.9)
 
-points(x_legend, y_legend + s_legend * 6, pch = pch_legend, bg = cols[4], lwd = lwd_legend, cex = cex_legend)
+points(x_legend, y_legend + s_legend * 6, pch = pch_legend, bg = cols[7], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 6, pos = 4, labels = "Unknown", cex = 0.9)
 
 points(x_legend, y_legend + s_legend * 7, pch = pch_legend, bg = cols[8], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 7, pos = 4, labels = "Mexico", cex = 0.9)
 
-points(x_legend, y_legend + s_legend * 8, pch = pch_legend, bg = cols[3], lwd = lwd_legend, cex = cex_legend)
+points(x_legend, y_legend + s_legend * 8, pch = pch_legend, bg = cols[6], lwd = lwd_legend, cex = cex_legend)
 text(x_legend, y_legend + s_legend * 8, pos = 4, labels = "Utah", cex = 0.9)
 
 ## animation 
@@ -239,129 +242,3 @@ if (length(png_files) > 0) {
   image_write(animation_final, "../plots/PCA_animation/3dAnimatedScatterplot_final.gif")
 } 
 file.remove(png_files)
-
-
-
-##########
-# Reduce #
-##########
-pca <- read.table('../Data/PCA/reduce.eigenvec')
-eigenval <- scan("../Data/PCA/reduce.eigenval")
-pca <- pca[,-1]
-names(pca)[1] <- "ind"
-names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
-# location data
-loc <- rep(NA, length(pca$ind))
-loc[grep("DgUT", pca$ind)] <- 'Utah'
-loc[grep("Dgr", pca$ind)] <- 'Mogollon_Rim'
-loc[grep("DgPT", pca$ind)] <- 'Portal'
-loc[grep("DgML", pca$ind)] <- 'Mt_Lemmon'
-
-pca <- as.tibble(data.frame(pca,loc))
-pve <- data.frame(PC = 1:20, pve = eigenval/sum(eigenval)*100)
-par(mfrow = c(2, 2))
-# barplot to show the % of variance each principal component explains
-bp <- barplot(pve$pve, ylim = c(0, 10), xaxt = "n")
-axis(1, at = bp, labels = paste0("PC", 1:20), las = 2, cex.axis = 0.6)
-
-# plot
-# cols = viridis(8, alpha = 0.8)
-cols <- brewer.pal(9,name = 'Set1')
-loc_col <- rep(NA, length(pca$ind))
-loc_col[grep("Mogollon_Rim", pca$loc)] <- cols[6]
-loc_col[grep("Portal", pca$loc)] <- cols[2]
-loc_col[grep("Mt_Lemmon", pca$loc)] <- cols[7]
-loc_col[grep("Utah", pca$loc)] <- cols[3]
-
-lwd = 0.4
-cex = 0.8
-plot(x = pca$PC1, y = pca$PC2, pch = 21, bg = loc_col,lwd = lwd, cex = cex, 
-     xlab = 'PC1(9.9%)', ylab = 'PC2(6.5%)',)
-#xlim = rev(range(pca$PC2)))
-x = 0.28
-y = 0.25
-s = -0.02
-pch = 21
-lwd = 0.2
-cex = 0.5
-
-points(x,y, pch = pch, bg = cols[6],lwd = lwd, cex = cex)
-text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = cex)
-points(x,y+s*1, pch = pch, bg = cols[1],lwd = lwd, cex = cex)
-text(x, y+s*1, pos =4 , labels = c("Madera Canyon"), cex = cex)
-points(x,y+s*2, pch = pch, bg = cols[2],lwd = lwd, cex = cex)
-text(x, y+s*2, pos =4 , labels = c("Portal"), cex = cex)
-points(x,y+s*3, pch = pch, bg = cols[7],lwd = lwd, cex = cex)
-text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = cex)
-points(x,y+s*4, pch = pch, bg = cols[5],lwd = lwd, cex = cex)
-text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = cex)
-points(x,y+s*5, pch = pch, bg = cols[9],lwd = lwd, cex = cex)
-text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = cex)
-points(x,y+s*6, pch = pch, bg = cols[4],lwd = lwd, cex = cex)
-text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = cex)
-points(x,y+s*7, pch = pch, bg = cols[8],lwd = lwd, cex = cex)
-text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = cex)
-points(x,y+s*8, pch = pch, bg = cols[3],lwd = lwd, cex = cex)
-text(x, y+s*8, pos =4 , labels = c("Utah"), cex = cex)
-
-############
-# Other PC #
-############
-lwd = 0.4
-cex = 0.8
-plot(x = pca$PC1, y = pca$PC3, pch = 21, bg = loc_col,lwd = lwd, cex = cex, 
-     xlab = 'PC1(9.9%)', ylab = 'PC3(5.7%)',)
-x = 0.28
-y = 0.34
-s = -0.028
-pch = 21
-lwd = 0.2
-cex = 0.5
-points(x,y, pch = pch, bg = cols[6],lwd = lwd, cex = cex)
-text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = cex)
-points(x,y+s*1, pch = pch, bg = cols[1],lwd = lwd, cex = cex)
-text(x, y+s*1, pos =4 , labels = c("Madera Canyon"), cex = cex)
-points(x,y+s*2, pch = pch, bg = cols[2],lwd = lwd, cex = cex)
-text(x, y+s*2, pos =4 , labels = c("Portal"), cex = cex)
-points(x,y+s*3, pch = pch, bg = cols[7],lwd = lwd, cex = cex)
-text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = cex)
-points(x,y+s*4, pch = pch, bg = cols[5],lwd = lwd, cex = cex)
-text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = cex)
-points(x,y+s*5, pch = pch, bg = cols[9],lwd = lwd, cex = cex)
-text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = cex)
-points(x,y+s*6, pch = pch, bg = cols[4],lwd = lwd, cex = cex)
-text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = cex)
-points(x,y+s*7, pch = pch, bg = cols[8],lwd = lwd, cex = cex)
-text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = cex)
-points(x,y+s*8, pch = pch, bg = cols[3],lwd = lwd, cex = cex)
-text(x, y+s*8, pos =4 , labels = c("Utah"), cex = cex)
-
-lwd = 0.4
-cex = 0.8
-plot(x = pca$PC2, y = pca$PC3, pch = 21, bg = loc_col,lwd = lwd, cex = cex, 
-     xlab = 'PC2(6.5%)', ylab = 'PC3(5.7%)',)
-x = 0.12
-y = 0.34
-s = -0.028
-pch = 21
-lwd = 0.2
-cex = 0.5
-points(x,y, pch = pch, bg = cols[6],lwd = lwd, cex = cex)
-text(x, y, pos =4 , labels = c("Mogollon Rim"), cex = cex)
-points(x,y+s*1, pch = pch, bg = cols[1],lwd = lwd, cex = cex)
-text(x, y+s*1, pos =4 , labels = c("Madera Canyon"), cex = cex)
-points(x,y+s*2, pch = pch, bg = cols[2],lwd = lwd, cex = cex)
-text(x, y+s*2, pos =4 , labels = c("Portal"), cex = cex)
-points(x,y+s*3, pch = pch, bg = cols[7],lwd = lwd, cex = cex)
-text(x, y+s*3, pos =4 , labels = c("Mt. Lemmon"), cex = cex)
-points(x,y+s*4, pch = pch, bg = cols[5],lwd = lwd, cex = cex)
-text(x, y+s*4, pos =4 , labels = c("Mt. Graham"), cex = cex)
-points(x,y+s*5, pch = pch, bg = cols[9],lwd = lwd, cex = cex)
-text(x, y+s*5, pos =4 , labels = c("Cochise County"), cex = cex)
-points(x,y+s*6, pch = pch, bg = cols[4],lwd = lwd, cex = cex)
-text(x, y+s*6, pos =4 , labels = c("Unknown"), cex = cex)
-points(x,y+s*7, pch = pch, bg = cols[8],lwd = lwd, cex = cex)
-text(x, y+s*7, pos =4 , labels = c("Mexico"), cex = cex)
-points(x,y+s*8, pch = pch, bg = cols[3],lwd = lwd, cex = cex)
-text(x, y+s*8, pos =4 , labels = c("Utah"), cex = cex)
-
