@@ -28,18 +28,16 @@ upperNe <- apply(NeMat, 2, quantile, 0.975)
 par(mar = c(4,4,1,1))
 plot(generations, medNe, type='n',
      xaxt = "n", yaxt = "n",
-     ylab = expression(italic(N[e])),
-     xlab = "Years ago",
+     ylab = '',
+     xlab = "",
      xlim = c(0,150), ylim = c(0,20000)
 )
+title(ylab = expression(italic(N[e])), line = 2.5)
+title(xlab = "Yeasrs ago", line = 2.5)
 # add shaded area for 95% CI
 polygon(c(generations, rev(generations)),
         c(upperNe, rev(lowerNe)),
         col=cols_fade[1], border=NA)
-# for(i in 1:nrow(NeMat)){
-#   lines(generations, NeMat[i,], col=rgb(0.2,0.4,0.8,0.2), lwd=0.5)
-# }
-
 # overlay median line
 lines(generations, medNe, col=cols[1], lwd=2)
 
@@ -83,12 +81,12 @@ for (s in 1:length(subs)) {
   lines(generations, medNe, col=cols[s+1], lwd=2)
 }
 
-s=800
-labels <- c('Mogollon Rim','Mt. Lemmon','Chiricahua Mt.','Utah')
-for (i in 1:4){
-  x = 117
-  y = 21000-i*s
-  points(x,y, col = cols[i], pch = 16 )
-  text(x,y, labels[i], pos = 4)
-}
+# s=800
+# labels <- c('Mogollon Rim','Mt. Lemmon','Chiricahua Mt.','Utah')
+# for (i in 1:4){
+#   x = 117
+#   y = 21000-i*s
+#   points(x,y, bg = cols[i], pch = 21 )
+#   text(x,y, labels[i], pos = 4)
+# }
 
