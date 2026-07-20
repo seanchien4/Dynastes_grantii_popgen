@@ -1,26 +1,46 @@
 library(viridis)
 library(scales)
-par(mar = c(4,4,1,1))
+# par(mar = c(4,4,2,1))
+# par(mfrow = c(2, 2), 
+#     mar = c(3, 3, 1.5, 1),
+#     mgp   = c(2, 0.5, 0))
 sim <- 100
 plot(NA,
-     xlim = c(0, 14),
-     ylim = c(9, 13),
+     xlim = c(1, 14),
+     ylim = c(9, 14),
      xlab = "",
      ylab = '',
      xaxt = "n",
-     yaxt = "n",
+     yaxt = "n"
 )
-title(ylab = expression(italic(N[e])), line = 2.5)
-title(xlab = "Yeasrs ago", line = 2.5)
+# title(main = "(A)", adj = 0, line = 0.5)
+# 5.8
+# plot(NA,
+#      xlim = c(1, 14),
+#      ylim = c(9, 13),
+#      xlab = "",
+#      ylab = '',
+#      xaxt = "n",
+#      yaxt = "n",
+# )
+line = 2.5
+title(ylab = expression(italic(N[e])), line = line)
+title(xlab = "Yeasrs ago", line = line)
+# for small plot 
+cex.axis = 1
 x_ticks_orig <- c(1, 10, 50, 500, 5000, 50000, 500000)
 x_ticks_log  <- log(x_ticks_orig)
-axis(1, at = x_ticks_log, labels = c('1','10','50','500','5K','50K','500K'))
+axis(1, at = x_ticks_log, labels = c('1','10','50','500','5K','50K','500K'), cex.axis = cex.axis)
 y_ticks_orig <- c(1e4, 1e5, 1e6)
 y_ticks_log  <- log(y_ticks_orig)
-axis(2, at = y_ticks_log, labels = c('10K','100K','1M'))
+axis(2, at = y_ticks_log, labels = c('10K','100K','1M'), cex.axis = cex.axis)
 abline(v=c(log(11700),log(115000)), col=alpha("black", 0.4))
 y = 9
-cex = 0.8
+# cex = 0.8
+# text(13,y,"LGP",cex=cex)
+# text(10.5,y,"Holocene",cex=cex)
+cex = 1
+# cex = 0.6
 text(13,y,"LGP",cex=cex)
 text(10.5,y,"Holocene",cex=cex)
 
@@ -85,9 +105,14 @@ for (i in 1:sim) {
 mean_y <- apply(y_mat, 1, mean, na.rm = TRUE)
 lines(x, mean_y, col = cols[4], lwd = lwd_main)
 
-x = 0.05
+# for larger plot
+x = 1
 y = 9.5
-s = 0.15
+s = 0.18
+# for 4 plots in onc
+# y = 9.9
+# s = 0.29
+
 pch = 21
 points(x,y, bg = cols[1], pch = pch)
 text(x,y, pos = 4, labels = 'Mongollon Rim')

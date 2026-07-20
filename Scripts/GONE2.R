@@ -48,7 +48,6 @@ labels_y <- c("1k","10K", "20K", "30K", "40K")
 axis(2, at = ticks_y, labels = labels_y, las = 1)
 
 # other populations
-
 subs <- c('Lemmon','Portal','Utah')
 for (s in 1:length(subs)) {
   path <- paste0("~/Desktop/Projects/Dynastes_grantii_pop/Data/GONE_Ne/", subs[s], "/")
