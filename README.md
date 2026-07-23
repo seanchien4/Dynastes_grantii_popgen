@@ -1,4 +1,4 @@
-# Dynastes grantii population genetic
+# _Dynastes grantii_ population genetic
 
 vcf_filter.sh - basic vcf statistic and filtering low quality individuals
 vcf_stats.R - Plotting depth and missing site (Figure S1)
