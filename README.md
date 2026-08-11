@@ -8,7 +8,7 @@
 | `vcf_stats.R` | Plotting depth and missing data | Figure S1 |
 | `PCA_ADMIXTURE.sh` | PCA and ADMIXTURE analysis | - |
 | `PCA_plot.R` / `admixture_plot.R` | PCA and ADMIXTURE visualization | Figure 2A, Figure 2B |
-| `Dsuite.sh` | ABBA-BABA test | - |
+| `Dsuite.sh` | ABBA-BABA test | Figure S4, FigureS5 |
 | `IBD.sh` / `IBD_test.R` | IBD test and visualization | Figure 2C |
 | `SMC++.sh` / `SMC_plot.R` | SMC++ analysis and visualization | Figure 3A |
 | `GONE2.sh` / `GONE2.R` | GONE2 analysis and visualization | Figure 3B |
