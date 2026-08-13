@@ -17,5 +17,6 @@
 | `ROH_grantii.sh` / `ROH.R` | ROH analysis and visualization | Figure 5, FigureS4 |
 | `GEA.sh` / `GEA.R` | Genotype-environment association analysis | Figure 6 |
 | `Goterm.R` | GO term enrichment analysis | Table 1 |
+|`Genetic_offset.R` | Genetic offset analysis | Figure 7 |
 
 
