@@ -115,7 +115,7 @@ s = 0.18
 
 pch = 21
 points(x,y, bg = cols[1], pch = pch)
-text(x,y, pos = 4, labels = 'Mongollon Rim')
+text(x,y, pos = 4, labels = 'Mogollon Rim')
 points(x,y-s, bg = cols[2], pch = pch)
 text(x,y-s, pos = 4, labels = 'Mt. Lemmon')
 points(x,y-2*s, bg = cols[3], pch = pch)
